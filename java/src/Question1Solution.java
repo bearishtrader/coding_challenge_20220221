@@ -13,7 +13,7 @@ import java.util.TreeSet;
 //        What is the largest 1 to 9 pandigital 9-digit number that can be formed as the concatenated product of an integer with (1,2, ... , n) where n >1?
 public class Question1Solution {
 
-    public static final int MAX_DIGITS = 9;
+    public static final int MAX_DIGITS = 9; // Our max pandigital has to be exactly nine digits
 
     static Integer getDigits(Integer number) {
         return (int) (Math.log10(number) + 1);
@@ -23,6 +23,8 @@ public class Question1Solution {
         Integer panDigital = -1;    // -1 means invalid
         int digitsSoFar = 0;    // Keep track of how many digits
         List<Integer> numbers = new ArrayList<>();
+        // Here's where we make the concatenated string based on multiplying integer i with set (1...n) where n is at
+        // least 2.  As soon as we detect its not a valid 1-9 pandigital return the sentinel value (-1 or -2).
         for (int setElem=1; setElem<=n; setElem++) {
             Integer number = i * setElem;
             digitsSoFar = digitsSoFar + getDigits(number);
@@ -36,7 +38,7 @@ public class Question1Solution {
             }
             numbers.add(number);
         }
-        if (digitsSoFar<9) {    // Invalid, less than 9 digits
+        if (digitsSoFar<MAX_DIGITS) {    // Invalid, less than 9 digits
             panDigital = -1; // The resulting number would be too small so not valid
             pandigitalEntry.setI(i);
             pandigitalEntry.setN(n);
